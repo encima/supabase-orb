@@ -1,11 +1,11 @@
 version: 2.1
 
 description: >
-  An example orb to provide the Supabase CLI for your jobs
+  An unofficial, example orb to provide the Supabase CLI for your jobs. This is based on the setup-cli Github Action provided by Supabase: https://github.com/supabase/setup-cli
 # What will your orb allow users to accomplish?
 # Descriptions should be short, simple, and informative.
 
 # This information will be displayed in the orb registry and is not mandatory.
 display:
   home_url: "https://docs.supabase.com"
-  source_url: "https://github.com/encima/supabase-orb"
+  source_url: "https://github.com/supabas/cli"
