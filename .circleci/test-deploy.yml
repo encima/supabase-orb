@@ -28,7 +28,8 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - supabase/greet
+      - supabase/install-cli:
+          version: 'latest'
 workflows:
   test-deploy:
     jobs:

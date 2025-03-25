@@ -1,0 +1,35 @@
+description: "Install Supabase CLI on CircleCI"
+parameters:
+  version:
+    type: string
+    default: "2.20.3"
+    description: "Supabase CLI version (or 'latest')"
+executor: <<parameters.executor>>
+steps:
+  - run:
+      name: Install Supabase CLI
+      command: |
+        if [ "<<parameters.version>>" = "latest" ]; then
+          VERSION=$(curl -s https://api.github.com/repos/supabase/cli/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
+        else
+          VERSION=<<parameters.version>>
+        fi
+        
+        OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+        ARCH=$(uname -m)
+        if [ "$ARCH" = "x86_64" ]; then
+          ARCH="amd64"
+        fi
+        
+        URL="https://github.com/supabase/cli/releases/download/v${VERSION}/supabase_${VERSION}_${OS}_${ARCH}.tar.gz"
+        
+        echo "Downloading Supabase CLI from $URL"
+        curl -L "$URL" -o supabase.tar.gz
+        tar -xzf supabase.tar.gz
+        chmod +x supabase
+        sudo mv supabase /usr/local/bin/
+        rm supabase.tar.gz
+        
+        echo "Supabase CLI installed successfully:"
+        supabase --version
+

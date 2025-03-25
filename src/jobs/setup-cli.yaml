@@ -1,0 +1,25 @@
+description: "Set up Supabase CLI"
+parameters:
+  sb_cli_version:
+    type: string
+    default: "2.20.3"
+    description: "Supabase CLI version (or 'latest')"
+  sb_access_token:
+    type: env_var_name
+    default: SUPABASE_ACCESS_TOKEN
+  sb_project_ref:
+    type: env_var_name
+    default: SUPABASE_PROJECT_REF
+  sb_db_password:
+    type: env_var_name
+    default: SUPABASE_DB_PASSWORD
+steps:
+  - checkout
+  - setup_remote_docker:
+      version: 20.10.14
+  - supabase-cli/install-cli:
+      version: <<parameters.sb_cli_version>>
+  - run:
+      name: Initialize Supabase project
+      command: supabase link --project-ref $SUPABASE_PROJECT_REF
+
